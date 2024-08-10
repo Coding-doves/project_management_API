@@ -6,9 +6,9 @@ from .choose_db import db_chooser
 metadata = MetaData()
 Base = declarative_base()
 
-def get_db(db_name: str):
+def get_db():
     def get_db_instance():
-        SessionLocal = db_chooser.get_session_local(db_name)
+        SessionLocal = db_chooser.get_session_local()
         db = SessionLocal()
         try:
             yield db

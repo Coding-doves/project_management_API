@@ -8,14 +8,10 @@ app = FastAPI()
 
 # Initialize db
 def init_db():
-    # Initialize auth.db
-    auth_engine = db_chooser.get_engine('auth')
-    model.Base.metadata.create_all(bind=auth_engine)
-    #model.Base.metadata.drop_all(bind=engine)
-
-    # Initialize task.db
-    task_engine = db_chooser.get_engine('task')
-    model.Base.metadata.create_all(bind=task_engine)
+    # Initialize db
+    engine = db_chooser.get_engine()
+    model.Base.metadata.create_all(bind=engine)
+    # model.Base.metadata.drop_all(bind=engine)
 
    
 init_db()

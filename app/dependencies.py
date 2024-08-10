@@ -43,7 +43,7 @@ def verify_token(token: str) -> dict:
             detail="Could not validate credentials"
         )
 
-def get_current_user(db: Session = Depends(db.get_db("auth")), token: str = Depends(oauth2)) -> schemas.User:
+def get_current_user(db: Session = Depends(db.get_db), token: str = Depends(oauth2)) -> schemas.User:
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",

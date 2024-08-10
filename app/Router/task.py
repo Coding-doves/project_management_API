@@ -20,13 +20,7 @@ def guest_required(user: schemas.User = Depends(get_current_active_guest)):
     return user
 
 @router.post("/tasks/{user_id}", response_model=schemas.Task)
-def create_task(user_id: int, task: schemas.TaskBase, db: Session = Depends(db.get_db()), token: str = Depends(oauth2_scheme)):
-    payload = verify_token(token)
-    print(f"Token payload: {payload}")  # Debugging line
-    
-    if "admin" not in payload.get("roles", []):
-        raise HTTPException(status_code=403, detail="Permission denied")
-
+def create_task(user_id: int, task: schemas.TaskBase, db: Session = Depends(db.get_db()), user: schemas.User = Depends(admin_required)):
     db_task = model.Task(
         title=task.title,
         description=task.description,
